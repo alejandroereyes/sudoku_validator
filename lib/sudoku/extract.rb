@@ -7,7 +7,7 @@ module Sudoku
     end
 
     def rows
-      @rows ||= cleaned_sudoku.map { |row| row.split.map(&:to_i) }
+      @rows ||= cleaned_sudoku.map { |row| row.split }
     end
 
     def columns
@@ -59,7 +59,7 @@ module Sudoku
     def extract_sub_group_from(level, range)
       level.map do |section|
         section[range.first..range.last]
-      end.join(" ").split.map(&:to_i)
+      end.join(" ").split
     end
   end
 end

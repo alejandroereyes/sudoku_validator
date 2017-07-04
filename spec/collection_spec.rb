@@ -75,13 +75,13 @@ describe ValidSudoku::Collection do
 
   describe "#valid_size?" do
     context "when size is invalid" do
-      let(:arr) { [1, 2] }
+      let(:arr) { ["1", "2"] }
       let(:subject) { sudoku_collection.valid_size?(arr) }
 
       it { is_expected.to eq false }
     end
     context "when size is valid" do
-      let(:arr) { [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+      let(:arr) { ["1", "2", "3", "4", "5", "6", "7", "8", "9"] }
       let(:subject) { sudoku_collection.valid_size?(arr) }
       it { is_expected.to eq true }
     end
@@ -89,12 +89,12 @@ describe ValidSudoku::Collection do
 
   describe "#allowed_values?" do
     context "when any value lays outside allowed values" do
-      let(:arr) { [0, 1, 2, 3, 4, 5, 6, 7, 8, 99] }
+      let(:arr) { ["0", "1", "2", "3", "4", "5", "6", "7", "8", "99"] }
       let(:subject) { sudoku_collection.allowed_values?(arr) }
       it { is_expected.to eq false }
     end
     context "when all values lay inside allowed values" do
-      let(:arr) { [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }
+      let(:arr) { ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] }
       let(:subject) { sudoku_collection.allowed_values?(arr) }
       it { is_expected.to eq true }
     end
@@ -102,17 +102,17 @@ describe ValidSudoku::Collection do
 
   describe "#no_duplicate_values?" do
     context "when contains duplicate values" do
-      let(:arr) { [1, 1, 2] }
+      let(:arr) { ["1", "1", "2"] }
       let(:subject) { sudoku_collection.no_duplicate_values?(arr) }
       it { is_expected.to eq false }
     end
     context "when does not contain any duplicate values" do
-      let(:arr) { [1, 3, 2] }
+      let(:arr) { ["1", "3", "2"] }
       let(:subject) { sudoku_collection.no_duplicate_values?(arr) }
       it { is_expected.to eq true }
     end
     context "when there are multiple null considered values" do
-      let(:arr) { [0, 0, 1, 2, 3] }
+      let(:arr) { ["0", "0", "1", "2", "3"] }
       let(:subject) { sudoku_collection.no_duplicate_values?(arr) }
       it { is_expected.to eq true }
     end
@@ -120,12 +120,12 @@ describe ValidSudoku::Collection do
 
   describe "#complete?" do
     context "when contains incomplete cells" do
-      let(:arr) { [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+      let(:arr) { ["0", "1", "2", "3", "4", "5", "6", "7", "8"] }
       let(:subject) { sudoku_collection.complete?(arr) }
       it { is_expected.to eq false }
     end
     context "when does not contain any incomplete cells" do
-      let(:arr) { [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+      let(:arr) { ["1", "2", "3", "4", "5", "6", "7", "8", "9"] }
       let(:subject) { sudoku_collection.complete?(arr) }
       it { is_expected.to eq true }
     end

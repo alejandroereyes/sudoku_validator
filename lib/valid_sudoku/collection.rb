@@ -1,8 +1,8 @@
 module ValidSudoku
   module Collection
 
-    NULL_VALUE = 0.freeze
-    ALLOWED_VALUES = (0..9).to_a.freeze
+    NULL_VALUE = "0".freeze
+    ALLOWED_VALUES = ("0".."9").to_a.freeze
     VALID_SIZE = 9.freeze
 
     def valid_collection?(collection)

@@ -39,6 +39,6 @@ class Validator
   end
 
   def complete?
-    super(extractor.cleaned_sudoku.join(" ").split.map(&:to_i))
+    super(extractor.cleaned_sudoku.join(" ").split)
   end
 end
