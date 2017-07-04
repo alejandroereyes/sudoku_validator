@@ -1,6 +1,19 @@
+require_relative "sudoku/extract"
+require_relative "valid_sudoku/collection"
 class Validator
+  include ValidSudoku::Collection
+
+  attr_reader :extractor, :rows, :columns, :sub_groups
+
+  VALID_RESPONSE = "This sudoku is valid.".freeze
+  VALID_INCOMPLETE_RESPONSE = "This sudoku is valid, but incomplete.".freeze
+  INVALID_RESPONSE = "This sudoku is invalid.".freeze
+
   def initialize(puzzle_string)
-    @puzzle_string = puzzle_string
+    @extractor = Sudoku::Extract.new(puzzle_string)
+    @rows = extractor.rows
+    @columns = extractor.columns
+    @sub_groups = extractor.sub_groups
   end
 
   def self.validate(puzzle_string)
@@ -8,10 +21,24 @@ class Validator
   end
 
   def validate
-    # Start creating your solution here.
-    #
-    # It's likely that you'll want to have many more classes than this one that
-    # was provided for you. Don't be hesistant to extract new objects (and
-    # write tests for them).
+    if valid?
+      complete? ? VALID_RESPONSE : VALID_INCOMPLETE_RESPONSE
+    else
+      INVALID_RESPONSE
+    end
+  end
+
+  private
+
+  def valid?
+    [rows, columns, sub_groups].all? { |collection| valid_collection?(collection) }
+  end
+
+  def valid_collection?(collection)
+    collection.all? { |col| super(col) }
+  end
+
+  def complete?
+    super(extractor.cleaned_sudoku.join(" ").split.map(&:to_i))
   end
 end
