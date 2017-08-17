@@ -1,5 +1,6 @@
 require_relative "sudoku/extract"
 require_relative "valid_sudoku/collection"
+
 class Validator
   include ValidSudoku::Collection
 
